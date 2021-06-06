@@ -1,4 +1,4 @@
-# TOAST Benchmark dataset for SARS-CoV-2 sequencing
+# TOAST benchmark dataset for SARS-CoV-2 sequencing
 
 ## Author
 Team of Technical Assistance and Outreach (TOAST) at CDC
