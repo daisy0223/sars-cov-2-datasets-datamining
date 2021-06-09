@@ -22,8 +22,8 @@ from argparse import ArgumentParser
 def parse_cmdline():
 	"""Parse command-line arguments for script."""
 	parser = ArgumentParser(prog="NCBI_Grabbing.py", description="""This script will take in and ID file and go scrap the information from the ncbi SRA site.""")
-	parser.add_argument("-f", "--ID-file", dest="IDs", action="store", default=False, required=True, help="A `mapping file` that is tab delimited with at columns GISAID_ID and SRR_ID.")
-	parser.add_argument("-p", "--pango-file", dest="pango", action="store", default=False, required=True, help="The Pango_Random_Genomes_Stats.tsv file that came out of Generate_Random_Genomes.py.")
+	parser.add_argument("-f", "--ID-file", dest="IDs", action="store", default=False, required=True, help="A full path to the mapping file that is tab delimited with at columns GISAID_ID and SRR_ID.")
+	parser.add_argument("-p", "--pango-file", dest="pango", action="store", default=False, required=True, help="The full path to Pango_Random_Genomes_Stats.tsv file that came out of Generate_Random_Genomes.py.")
 	args = parser.parse_args()
 	return args
 
