@@ -16,6 +16,16 @@
 from numpy import *
 import pandas as pd
 from selenium import webdriver
+from argparse import ArgumentParser
+
+
+def parse_cmdline():
+	"""Parse command-line arguments for script."""
+	parser = ArgumentParser(prog="NCBI_Grabbing.py", description="""This script will take in and ID file and go scrap the information from the ncbi SRA site.""")
+	parser.add_argument("-f", "--ID-file", dest="IDs", action="store", default=False, required=True, help="A `mapping file` that is tab delimited with at columns GISAID_ID and SRR_ID.")
+	parser.add_argument("-p", "--pango-file", dest="pango", action="store", default=False, required=True, help="The Pango_Random_Genomes_Stats.tsv file that came out of Generate_Random_Genomes.py.")
+	args = parser.parse_args()
+	return args
 
 # set colors for warnings so they are seen
 CRED = '\033[91m' + '\nWarning:'
@@ -25,14 +35,14 @@ CEND = '\033[0m'
 pd.set_option("max_columns", None)
 pd.set_option("max_rows", None)
 
-def NCBI_grab():
+def NCBI_grab(IDs):
 	""" This function goes to the ncbi website and clicks the download button to get a .csv file that has the path
 	web address for each genome. """
 	#SRR_list = ["ERR5217817", "ERR5228921", "ERR5068954", "SRR13422802", "SRR13500923", "SRR13603869", "SRR13606446", "SRR13422799", "SRR13433811", "SRR13511054", "SRR14241199", "SRR13511054", "SRR14241199", "SRR13500958", "SRR13500958", "SRR13606410", "ERR5334427"]
 	df = pd.DataFrame(columns = ["SRR", "BioSample", "Layout", "Instrument", "Primers", "Protocol"]) # creating empty dataframe for later
 	count = 0
 	Design = ""
-	with open("India_SRR_IDs.txt", "r") as file:
+	with open(IDs) as file:
 		for SRR in file:
 			driver = webdriver.Chrome()  # Alternatively you can change this to driver webdriver.Chrome(executable_path="C:\\chromedriver.exe")
 			driver.get("https://www.ncbi.nlm.nih.gov/sra/") # get to gsaid login page
@@ -75,10 +85,12 @@ def NCBI_grab():
 			df = df.append(new_row, ignore_index=True)
 			driver.close
 		print(CYEL+ "Retrieved information for {} SRRs".format(count) + CEND)
-		df.to_csv('NCBI_Info_Larger.csv', sep=',', index=False)
+		#df.to_csv('NCBI_Info_Larger.csv', sep=',', index=False)
+		return df
 
-def clean_table():
-	NCBI_info = pd.read_csv('NCBI_Info_Larger.csv', sep=',', header=0)
+def clean_table(NCBI_Info_Larger):
+	#NCBI_info = pd.read_csv('NCBI_Info_Larger.csv', sep=',', header=0)
+	NCBI_info = NCBI_Info_Larger
 	NCBI_info['SRR'] = NCBI_info['SRR'].str.replace("\n", "")
 	NCBI_info['Primers'] = NCBI_info['Primers'].replace({' Whole genome sequencing of SARS-CoV-2 using the Artic protocol V3 and Illumina MiSeq':'Artic protocol V3',
 	                                                     ' Whole genome sequencing of SARS-CoV-2 using the Artic protocol V3 and Oxford Nanopore GridION sequencing':'Artic protocol V3',
@@ -102,11 +114,13 @@ def clean_table():
 	NCBI_info.loc[NCBI_info['Protocol'] == 'artic_protocol_version 3.0', 'Primers'] = 'Artic protocol V3'
 	NCBI_info_cleaned = NCBI_info[NCBI_info["Primers"].str.contains('Artic protocol V3')]
 	print(NCBI_info)
-	NCBI_info_cleaned.to_csv('NCBI_Info_Cleaned_Run2.csv', sep=',', index=True)
+	#NCBI_info_cleaned.to_csv('NCBI_Info_Cleaned_Run2.csv', sep=',', index=True)
+	return NCBI_info_cleaned
 	
-def combine():
-	NCBI_info = pd.read_csv('NCBI_Info_Cleaned_Run2.csv', sep=',', header=0)
-	Pango = pd.read_csv('Pango_Random_Genomes_Stats.tsv', sep='\t', header=0)
+def combine(pango, NCBI_info_cleaned):
+	#NCBI_info = pd.read_csv('NCBI_Info_Cleaned_Run2.csv', sep=',', header=0)
+	NCBI_info = NCBI_info_cleaned
+	Pango = pd.read_csv(pango, sep='\t', header=0)
 	NCBI_info.rename(columns = {'SRR':'SRR_ID'}, inplace = True) # change column names for merging
 	NCBI_info = NCBI_info.drop(columns=['Unnamed: 0'])
 	NCBI_info['SRR_ID'] = NCBI_info['SRR_ID'].str.replace("\n", "")
@@ -126,10 +140,10 @@ def double_check(SRR):
 	print(Sample)
 
 def main():
-	# args = parse_cmdline()
-	NCBI_grab()
-	clean_table()
-	combine()
+	args = parse_cmdline()
+	NCBI_Info_Larger = NCBI_grab(args.IDs)
+	NCBI_info_cleaned = clean_table(NCBI_Info_Larger)
+	combine(args.pango, NCBI_info_cleaned)
 	#SRR = "SRR13530301"
 	#double_check(SRR)
 
