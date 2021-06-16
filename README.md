@@ -23,10 +23,9 @@ It consists of six subsets summarized in the below table.
 - `edirct, sratoolkit,Perl, Make, wget, sha256sum
 
 ## Data downloading
+-download the dataset.tsv
 ```Shell
-$>wget https://raw.githubusercontent.com/globalmicrobialidentifier-WG3/datasets/master/datasets/sarscov2-SNF-A.tsv
-$>wget https://raw.githubusercontent.com/globalmicrobialidentifier-WG3/datasets/master/datasets/sars-cov-2-coronahit-rapid.tsv
-$>wget https://github.com/globalmicrobialidentifier-WG3/datasets/blob/master/datasets/sars-cov-2-coronahit-routine.tsv
-$> wget https://raw.githubusercontent.com/daisy0223/misc/main/Dataset4.tsv
-$> wget https://github.com/daisy0223/misc/blob/main/Dataset5.tsv
-$> perl GenFSGopher.pl -o /path/to/target/directory /path/to/downloaded/dataset/tsv
+$> Example 1: wget https://raw.githubusercontent.com/globalmicrobialidentifier-WG3/datasets/master/datasets/sarscov2-SNF-A.tsv
+$> Example 2: wget https://raw.githubusercontent.com/daisy0223/misc/main/Dataset4.tsv
+-download the raw reads for each dataset
+$> perl GenFSGopher.pl -o /path/to/target/directory /path/to/dataset/tsv
