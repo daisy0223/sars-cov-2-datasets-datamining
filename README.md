@@ -28,4 +28,5 @@ It consists of six subsets summarized in the below table.
 $> Example 1: wget https://raw.githubusercontent.com/globalmicrobialidentifier-WG3/datasets/master/datasets/sarscov2-SNF-A.tsv
 $> Example 2: wget https://raw.githubusercontent.com/daisy0223/misc/main/Dataset4.tsv
 -download the raw reads for each dataset
+```Shell
 $> perl GenFSGopher.pl -o /path/to/target/directory /path/to/dataset/tsv
