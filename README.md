@@ -20,14 +20,15 @@ It consists of six subsets summarized in the below table.
 ## Downloading script
 - Please refer to this [site](https://github.com/WGS-standards-and-analysis/datasets) for more details of installing the downloading script.
 ## Prerequisites
-- `edirct, sratoolkit,Perl, Make, wget, sha256sum
+- `edirct, sratoolkit,Perl, Make, wget, sha256sum`
 
 ## Data downloading
 -download the dataset.tsv
 ```Shell
 $> Example 1: wget https://raw.githubusercontent.com/globalmicrobialidentifier-WG3/datasets/master/datasets/sarscov2-SNF-A.tsv
 $> Example 2: wget https://raw.githubusercontent.com/daisy0223/misc/main/Dataset4.tsv
-
+```
 -download the raw reads for each dataset
 ```Shell
 $> perl GenFSGopher.pl -o /path/to/target/directory /path/to/dataset/tsv
+```
