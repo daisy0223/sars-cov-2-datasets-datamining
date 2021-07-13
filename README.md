@@ -1,7 +1,7 @@
 # TOAST benchmark dataset for SARS-CoV-2 sequencing
 
 ## Author
-Technical Outreach and Assistance for States (TOAST)
+
 
 ## Purpose
 TOAST decided to work on generating a benchmark dataset for SARS-CoV-2 sequencing per multiple states’ requests. Our benchmark dataset is designed for users at different stages of building sequencing capacity. 
