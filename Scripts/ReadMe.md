@@ -4,7 +4,7 @@
 
 *Note: You will need to use full paths in places where $PWD is in the path as I removed these, because cyber crime is a thing :grimacing:.*
 
-Run pangolin on multi-fasta file. The singularity.conf file and how to run cromwell is found [here](https://github.com/jvhagey/Tutorials/tree/main/wdl_files). 
+Run pangolin on multi-fasta file. The `singularity.conf` file and how to run cromwell is found [here](https://github.com/jvhagey/Tutorials/tree/main/wdl_files). 
 
 `java -Dconfig.file=/$PWD/bin/singularity.conf -jar ~/bin/cromwell-59.jar run /$PWD/Pangolin/wf_pangolin_illumina_pe.wdl --inputs Pangolin.inputs.json`
 
