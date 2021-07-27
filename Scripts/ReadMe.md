@@ -8,6 +8,8 @@ Run pangolin on multi-fasta file. The `singularity.conf` file and how to run cro
 
 `java -Dconfig.file=/$PWD/bin/singularity.conf -jar ~/bin/cromwell-59.jar run /$PWD/Pangolin/wf_pangolin_illumina_pe.wdl --inputs Pangolin.inputs.json`
 
+I did swipe this wdl workflow script out of the [Titan](https://github.com/theiagen/public_health_viral_genomics) pipeline, so credit to them for writting that little bit and for all the folks in [STaPH-B](https://github.com/StaPH-B) who have work to develop best practices for SARS-CoV-2 genomic characterization. Ya'll are serious :star2:s.
+
 **Generate_Random_Genomes.py**  
 
 You can run this by editing and submitting `Random_Genome_Automation.sh`  
