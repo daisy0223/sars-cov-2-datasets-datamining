@@ -3,10 +3,9 @@ Outbreak
 pmid											
 tree											
 source	Norman Hassell										
-dataType	CDC defined VOI and VOC										
-											
+dataType	Non_VOI_VOC_Lineages										
 biosample_acc	strain	genBankAssembly	nucleotide	SRArun_acc	outbreak	dataSetName	suggestedReference	sha256sumAssembly	sha256sumnucleotide	sha256sumRead1	sha256sumRead2
-	Wuhan-1		NC_045512.2				TRUE				
+-	Wuhan-1	NC_045512.2	NA	NA	SNF	A	TRUE	-	-	-	-
 SAMN17866042	hCoV-19_USA_TX-DSHS-2474_2020		MW735891	SRR13687078			FALSE		b194f4cd0c5db1ab9608c2163e0f4fb4863a832fc08e718ab3710d268dd10320	f7c5dd5eb81371dc75a4cbc16da18b6237735199d93ec0e2539aa40b2f0403e4	df512428a141ae78016f66193a00cfbcdc3d8f9cf3882726dd04a918040710f5
 SAMN17867327	hCoV-19_USA_CA-CZB-19306_2020		MW700464	SRR13690003			FALSE		92143cd0273fabf199c754d382c9394ee650b5d49ac1173a9556951d3e023c5d	e1394505344370b474c068a427419db74857bdbbeb6459719cd44b3b759aaf88	3e3c2220baff129b0fe38c7af98c3e97100c0d033e4abf3ac3108edda5f78a58
 SAMN17867197	hCoV-19_USA_CA-CZB-15587_2020		MW700586	SRR13689874			FALSE		5f89ba9a19f383d37a7e5751b9c6f8c212d053c920dbc0a6b1cb4a7ab6cf71bd	b7457ef379360380ade30bc289b951fc2791394aad5d9a0c5f65d3546e0fd0f4	df5a78e977a15e2edc4806a4b5783fe67b9048a75032cef3a1c9be8d750f368c
