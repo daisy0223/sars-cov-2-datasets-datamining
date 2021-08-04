@@ -2,9 +2,13 @@
 
 **Run Pangolin**
 
-Run pangolin on multi-fasta file. The singularity.conf file and how to run cromwell is found [here](https://github.com/jvhagey/Tutorials/tree/main/wdl_files). 
+*Note: You will need to use full paths in places where $PWD is in the path as I removed these, because cyber crime is a thing :grimacing:.*
 
-`java -Dconfig.file=/scicomp/home-pure/qpk9/bin/singularity.conf -jar ~/bin/cromwell-59.jar run /scicomp/home-pure/qpk9/TOAST/Pangolin/wf_pangolin_illumina_pe.wdl --inputs Pangolin.inputs.json`
+Run pangolin on multi-fasta file. The `singularity.conf` file and how to run cromwell is found [here](https://github.com/jvhagey/Tutorials/tree/main/wdl_files). 
+
+`java -Dconfig.file=/$PWD/bin/singularity.conf -jar ~/bin/cromwell-59.jar run /$PWD/Pangolin/wf_pangolin_illumina_pe.wdl --inputs Pangolin.inputs.json`
+
+I did swipe this wdl workflow script out of the [Titan](https://github.com/theiagen/public_health_viral_genomics) pipeline, so credit to them for writting that little bit and for all the folks in [STaPH-B](https://github.com/StaPH-B) who have work to develop best practices for SARS-CoV-2 genomic characterization. Ya'll are serious :star2:s.
 
 **Generate_Random_Genomes.py**  
 
@@ -25,15 +29,15 @@ The script requires:
 
 For example:
 
-`python3 Generate_Random_Fasta.py -f /scicomp/groups-pure/Projects/TOAST/B.1.617/413.B.1.617.fasta -m /scicomp/groups-pure/Projects/TOAST/B.1.617/mapping_file.txt -ref /scicomp/groups-pure/Projects/TOAST/B.1.617/Jill_Analysis/Reference_Sequences -p Indian_Variants_pango2_lineage.csv --random-only -n 50`
+`python3 Generate_Random_Fasta.py -f /$PWD/B.1.617/413.B.1.617.fasta -m /$PWD/B.1.617/mapping_file.txt -ref /$PWD/B.1.617/Analysis/Reference_Sequences -p Delta_Variants_pango2_lineage.csv --random-only -n 50`
 
-`python3 Generate_Random_Fasta.py --all -f /scicomp/groups-pure/Projects/TOAST/B.1.617/413.B.1.617.fasta -m /scicomp/groups-pure/Projects/TOAST/B.1.617/mapping_file.txt -ref /scicomp/groups-pure/Projects/TOAST/B.1.617/Jill_Analysis/Reference_Sequences -p Indian_Variants_pango2_lineage.csv`
+`python3 Generate_Random_Fasta.py --all -f /$PWD/B.1.617/413.B.1.617.fasta -m /$PWD/B.1.617/mapping_file.txt -ref /$PWD/B.1.617/Analysis/Reference_Sequences -p Delta_Variants_pango2_lineage.csv`
 
 **Get SRA_IDs**  
 
 `cut -f18 Pango_Random_Genomes_Stats.tsv > SRR_IDs.txt`
 
-This file will be passed to NCBI_Grabbing.py
+This file will be passed to `NCBI_Grabbing.py`
 
 **NCBI_Grabbing.py**
 
