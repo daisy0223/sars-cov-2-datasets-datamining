@@ -33,7 +33,7 @@ def parse_cmdline():
 	This script expectsb a pangolin report like XXXXX.pangolin_report.csv and SrrGisMapping.tsv are in the same directory as this script.""")
 	parser.add_argument("-p", "--pandolin-report", dest="pangolin_input", action="store", default=False, required=True, help="Pass the pangolin report file.")
 	parser.add_argument("-f", "--fasta", dest="full_fasta", action="store", default=False, required=True, help="Pass a fasta file with all sequences of variants to be split.")
-	parser.add_argument("-v", "--variants", dest="variants", action="store", default=False, required=False, help="List of variants.")
+	parser.add_argument("-v", "--variants", dest="variants", action="store", default=False, required=False, help="A file with one variant on each line, will be converted to a list.")
 	parser.add_argument("-r", "--random-only", dest="random_only", action="store_true", default=False, required=False, help="This flag will just rerun picking random sequences. This bypasses the creation of the .txt or .fasta files.")
 	parser.add_argument("-n", "--seq-num", dest="seq_num", action="store", default=30, required=False, help="The number of random sequences to pull for each VOC/VOIs.")
 	parser.add_argument("-a", "--all", dest="all_samples", action="store_true", default=False, required=False, help="This flag just runs everything rather than picking random samples.")
@@ -42,10 +42,12 @@ def parse_cmdline():
 	args = parser.parse_args()
 	return args
 
-def get_file(ref_path, pangolin_input, all_samples, seq_num, random_only, full_fasta):
-	"""For each variant ."""
+def get_file(variants, ref_path, pangolin_input, all_samples, seq_num, random_only, full_fasta):
+	"""For each variant do the following."""
 	#VOC_VOI_list = ["B.1.1.7", "B.1.351", "B.1.427", "B.1.429", "P.1", "B.1.526", "B.1.525", "B.1.526.1" ,"P.2"]# list of VOIs/VOCs
-	VOC_VOI_list = ["B.1.617.1", "B.1.617.2", "B.1.617.3"]# list of VOIs/VOCs
+	#VOC_VOI_list = ["B.1.617.1", "B.1.617.2", "B.1.617.3"]# list of VOIs/VOCs
+	with open(variants) as f:
+		VOC_VOI_list = [line.rstrip() for line in f]
 	df = pd.DataFrame(columns = ["taxon", "lineage", "probability", "pangoLEARN_version", "status", "note", "ID", "LENGTH", "ALIGNED", "UNALIGNED", "VARIANT", "HET", "MASKED", "LOWCOV"]) # creating empty dataframe for later
 	Pango_Output = pd.read_csv(pangolin_input, sep=',', header=0)  # open file
 	Pango_Output_VOCI = Pango_Output[Pango_Output['lineage'].isin(VOC_VOI_list)] # reduce dataframe to only VOC/VOI for faster compute. This removes ~20K rows
@@ -229,7 +231,7 @@ def cal_stats(SRR_Checked):
 
 def main():
 	args = parse_cmdline()
-	df_merge = get_file(args.ref_path, args.pangolin_input, args.all_samples, args.seq_num, args.random_only, args.full_fasta)
+	df_merge = get_file(args.variants, args.ref_path, args.pangolin_input, args.all_samples, args.seq_num, args.random_only, args.full_fasta)
 	Check_and_add_stats(args.mapping_file,df_merge)
 
 if __name__ == '__main__':
