@@ -88,6 +88,7 @@ def NCBI_grab(IDs):
 		return df
 
 def clean_table(NCBI_Info_Larger):
+	""" This function cleans the datatable to convert all possible versions encountered of saying Artic V3 primers. There are probably other cases of different ways this is input, but that is a manual process to identify along the way."""
 	#NCBI_info = pd.read_csv('NCBI_Info_Larger.csv', sep=',', header=0)
 	NCBI_info = NCBI_Info_Larger
 	NCBI_info['SRR'] = NCBI_info['SRR'].str.replace("\n", "")
