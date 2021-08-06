@@ -31,7 +31,7 @@ For example:
 
 **Get SRA_IDs**  
 
-`cut -f18 Pango_Random_Genomes_Stats.tsv > SRA_IDs.txt`
+`cut -f18 Pango_Random_Genomes_Stats.tsv > SRR_IDs.txt`
 
 This file will be passed to `NCBI_Grabbing.py`
 
