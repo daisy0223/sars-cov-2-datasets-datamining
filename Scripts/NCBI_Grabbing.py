@@ -21,7 +21,7 @@ from argparse import ArgumentParser
 
 def parse_cmdline():
 	"""Parse command-line arguments for script."""
-	parser = ArgumentParser(prog="NCBI_Grabbing.py", description="""This script will take in and ID file and go scrap the information from the ncbi SRA site.""")
+	parser = ArgumentParser(prog="NCBI_Grabbing.py", description="""This script will take in and ID file and go scrap the information from the ncbi SRR site.""")
 	parser.add_argument("-f", "--ID-file", dest="IDs", action="store", default=False, required=True, help="A full path to the mapping file that is tab delimited with at columns GISAID_ID and SRR_ID.")
 	parser.add_argument("-p", "--pango-file", dest="pango", action="store", default=False, required=True, help="The full path to Pango_Random_Genomes_Stats.tsv file that came out of Generate_Random_Genomes.py.")
 	args = parser.parse_args()
@@ -38,7 +38,6 @@ pd.set_option("max_rows", None)
 def NCBI_grab(IDs):
 	""" This function goes to the ncbi website and clicks the download button to get a .csv file that has the path
 	web address for each genome. """
-	#SRR_list = ["ERR5217817", "ERR5228921", "ERR5068954", "SRR13422802", "SRR13500923", "SRR13603869", "SRR13606446", "SRR13422799", "SRR13433811", "SRR13511054", "SRR14241199", "SRR13511054", "SRR14241199", "SRR13500958", "SRR13500958", "SRR13606410", "ERR5334427"]
 	df = pd.DataFrame(columns = ["SRR", "BioSample", "Layout", "Instrument", "Primers", "Protocol"]) # creating empty dataframe for later
 	count = 0
 	Design = ""
@@ -89,6 +88,7 @@ def NCBI_grab(IDs):
 		return df
 
 def clean_table(NCBI_Info_Larger):
+	""" This function cleans the datatable to convert all possible versions encountered of saying Artic V3 primers. There are probably other cases of different ways this is input, but that is a manual process to identify along the way."""
 	#NCBI_info = pd.read_csv('NCBI_Info_Larger.csv', sep=',', header=0)
 	NCBI_info = NCBI_Info_Larger
 	NCBI_info['SRR'] = NCBI_info['SRR'].str.replace("\n", "")
