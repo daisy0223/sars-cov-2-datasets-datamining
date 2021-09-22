@@ -25,8 +25,6 @@
 #
 ## -- end embedded SGE options --
 
-echo I am running on node: login02.aspen.biotech.cdc.gov
-
 cd /$PWD/Random_Genome_Automation
 ## Getting sequence variants
 module load seqkit/1.0
